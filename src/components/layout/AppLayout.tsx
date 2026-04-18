@@ -29,10 +29,10 @@ export default function AppLayout() {
     <div className="min-h-screen flex bg-background">
       {/* Sidebar */}
       <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-border bg-sidebar px-5 py-7 sticky top-0 h-screen">
-        <div className="flex items-center gap-2.5 mb-10">
-          <div className="h-9 w-9 rounded-xl bg-gradient-sage grid place-items-center shadow-soft">
-            <GraduationCap className="h-5 w-5 text-primary-foreground" />
-          </div>
+        <div className="flex items-center gap-3.5 mb-10">
+          <div className="h-10 w- rounded-xl overflow-hidden shadow-soft">
+          <img src="/logo.png" alt="logo" className="h-full w-full object-cover" />
+        </div>
           <div>
             <div className="font-display text-xl font-bold leading-none">CampusPulse</div>
             <div className="text-[11px] text-muted-foreground mt-1 tracking-wide uppercase">Atharva University</div>
@@ -91,9 +91,9 @@ export default function AppLayout() {
         {/* Mobile top bar */}
         <header className="md:hidden flex items-center justify-between px-4 py-3 border-b border-border bg-sidebar sticky top-0 z-20">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-sage grid place-items-center">
-              <GraduationCap className="h-4 w-4 text-primary-foreground" />
-            </div>
+<div className="h-9 w-9 rounded-xl overflow-hidden shadow-soft">
+  <img src="/logo.png" alt="logo" className="h-full w-full object-cover" />
+</div>
             <span className="font-display font-semibold">CampusPulse</span>
           </div>
           <select
