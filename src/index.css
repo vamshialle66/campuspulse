@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 220 45% 12%;
+
+    --surface: 0 0% 100%;
+    --surface-muted: 210 35% 95%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 45% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 45% 12%;
+
+    /* Blue primary */
+    --primary: 217 75% 45%;
+    --primary-foreground: 210 40% 98%;
+    --primary-soft: 214 70% 93%;
+
+    --secondary: 214 40% 93%;
+    --secondary-foreground: 220 45% 12%;
+
+    --muted: 214 30% 94%;
+    --muted-foreground: 220 15% 42%;
+
+    --accent: 195 85% 55%;        /* bright sky accent */
+    --accent-foreground: 220 45% 12%;
+
+    --destructive: 4 72% 56%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 220 25% 14%;
+
+    --success: 156 45% 42%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 217 75% 45%;
+
+    --radius: 1rem;
+
+    --shadow-soft: 0 1px 2px hsl(220 45% 12% / 0.04), 0 8px 24px -12px hsl(217 75% 45% / 0.12);
+    --shadow-pop: 0 2px 4px hsl(220 45% 12% / 0.04), 0 20px 40px -20px hsl(217 75% 45% / 0.30);
+
+    --gradient-warm: linear-gradient(135deg, hsl(210 50% 97%) 0%, hsl(214 60% 94%) 100%);
+    --gradient-sage: linear-gradient(135deg, hsl(217 75% 45%) 0%, hsl(224 70% 35%) 100%);
+
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 220 25% 25%;
+    --sidebar-primary: 217 75% 45%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 214 40% 93%;
+    --sidebar-accent-foreground: 220 45% 12%;
+    --sidebar-border: 214 25% 88%;
+    --sidebar-ring: 217 75% 45%;
+  }
+
+  .dark {
+    --background: 222 40% 8%;
+    --foreground: 210 40% 96%;
+    --surface: 222 35% 12%;
+    --surface-muted: 222 30% 16%;
+    --card: 222 35% 12%;
+    --card-foreground: 210 40% 96%;
+    --popover: 222 35% 12%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 213 90% 62%;
+    --primary-foreground: 222 40% 10%;
+    --primary-soft: 217 50% 22%;
+    --secondary: 222 25% 18%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 222 25% 18%;
+    --muted-foreground: 214 15% 65%;
+    --accent: 195 90% 60%;
+    --accent-foreground: 222 40% 10%;
+    --destructive: 4 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 38 90% 60%;
+    --warning-foreground: 220 25% 10%;
+    --success: 156 45% 50%;
+    --success-foreground: 0 0% 100%;
+    --border: 222 25% 22%;
+    --input: 222 25% 22%;
+    --ring: 213 90% 62%;
+    --sidebar-background: 222 40% 8%;
+    --sidebar-foreground: 214 20% 85%;
+    --sidebar-primary: 213 90% 62%;
+    --sidebar-primary-foreground: 222 40% 10%;
+    --sidebar-accent: 222 25% 18%;
+    --sidebar-accent-foreground: 210 40% 96%;
+    --sidebar-border: 222 25% 22%;
+    --sidebar-ring: 213 90% 62%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  }
+  h1, h2, h3, .font-display {
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .font-mono, code, kbd {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+}
+
+@layer components {
+  .cp-card {
+    @apply rounded-2xl bg-[hsl(var(--surface))] border border-border;
+    box-shadow: var(--shadow-soft);
+  }
+  .cp-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+  .cp-divider {
+    @apply h-px w-full bg-border;
+  }
+
+/* 🔴 STUDENT (hide restricted things) */
+body.role-student .role-admin,
+body.role-student .role-faculty,
+body.role-student .role-non-student {
+  display: none !important;
+}
+
+/* 🟡 FACULTY (hide admin only) */
+body.role-faculty .role-admin {
+  display: none !important;
+}
+
+/* 🟢 ADMIN sees everything */
+body.role-student .role-admin,
+body.role-student .role-faculty,
+body.role-student .role-non-student {
+  display: none !important;
+}
+
+body.role-faculty .role-admin {
+  display: none !important;
+}
+/* ✅ Hide ONLY role switch */
+.role-switch {
+  display: none !important;
+}
+}
