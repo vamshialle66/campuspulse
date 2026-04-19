@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Mail, Lock } from "lucide-react";
 import { useStore } from "@/store/campus";
+
 export default function Auth() {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
@@ -19,25 +21,23 @@ export default function Auth() {
     });
 
     const data = await res.json();
-    // 🔥 IMPORTANT FIX
-if (!res.ok) {
-  alert(data.msg); // shows "User already exists"
-  return;
-}
 
-setMode("login");
+    // 🔥 SAME LOGIC (unchanged)
+    if (!res.ok) {
+      alert(data.msg);
+      return;
+    }
 
     if (isLogin) {
       if (data.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("email", email);
         localStorage.setItem("role", data.role);
+
         useStore.getState().setRole(data.role);
-     // 🔥 important
-        
+
         document.body.className = `role-${data.role}`;
         window.location.href = "/";
-        
       } else {
         alert(data.msg);
       }
@@ -48,46 +48,81 @@ setMode("login");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-80">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
 
-        <h2 className="text-2xl font-bold text-blue-600 text-center mb-2">
-          CampusPulse
-        </h2>
-
-        <p className="text-center text-sm text-gray-500 mb-6">
-          {isLogin ? "Welcome back 👋" : "Create your account"}
+      {/* 🔝 HERO TEXT */}
+      <div className="text-center mb-8 max-w-lg">
+        <h1 className="text-3xl font-bold tracking-tight">
+          One platform for students & faculty
+        </h1>
+        <p className="text-muted-foreground mt-2">
+          Access schedules, notices, and campus updates instantly.
         </p>
+      </div>
 
-        <input
-          placeholder="Email"
-          className="w-full mb-3 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      {/* 🔥 CARD */}
+      <div className="cp-card w-full max-w-md p-6 shadow-lg">
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full mb-4 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        {/* LOGO + TITLE */}
+        <div className="text-center mb-6">
+          <img src="/logo.png" className="h-10 mx-auto mb-2" />
+          <h2 className="text-lg font-extrabold">
+            {isLogin ? "CampusPulse" : "Create your account"}
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            {isLogin ? "Welcome!" : "Register to continue"}
+          </p>
+        </div>
 
+        {/* EMAIL */}
+        <div className="relative mb-3">
+          <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <input
+            placeholder="Email"
+            className="w-full pl-9 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        {/* PASSWORD */}
+        <div className="relative mb-4">
+          <Lock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full pl-9 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        {/* MAIN BUTTON */}
         <button
           onClick={handleSubmit}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg transition"
+          className="w-full border border-primary text-primary p-2 rounded-lg hover:bg-primary/10 transition font-semibold"
         >
           {isLogin ? "Login" : "Create Account"}
         </button>
 
-        <p
+        {/* DIVIDER */}
+        <div className="flex items-center gap-2 my-5">
+          <div className="flex-1 h-px bg-border"></div>
+          <span className="text-xs text-muted-foreground">OR</span>
+          <div className="flex-1 h-px bg-border"></div>
+        </div>
+
+        {/* SWITCH BUTTON */}
+        <button
           onClick={() => setMode(isLogin ? "register" : "login")}
-          className="text-sm text-blue-600 text-center mt-4 cursor-pointer hover:underline"
+          className="w-full border border-primary text-primary p-2 rounded-lg hover:bg-primary/10 transition font-medium"
         >
-          {isLogin
-            ? "Don't have an account? Create one"
-            : "Already have an account? Login"}
-        </p>
+          {isLogin ? "Create Account" : "Back to Login"}
+        </button>
       </div>
+
+      {/* FOOT */}
+      <p className="text-xs text-muted-foreground mt-6 text-center">
+        
+      </p>
     </div>
   );
 }
