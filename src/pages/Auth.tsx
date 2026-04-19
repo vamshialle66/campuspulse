@@ -52,11 +52,11 @@ export default function Auth() {
 
       {/* 🔝 HERO TEXT */}
       <div className="text-center mb-8 max-w-lg">
-        <h1 className="text-3xl font-bold tracking-tight">
-          One platform for students & faculty
+        <h1 className="text-3xl font-bold tracking-tight whitespace-nowrap">
+          Streamline your campus, effortlessly.
         </h1>
         <p className="text-muted-foreground mt-2">
-          Access schedules, notices, and campus updates instantly.
+          Manage schedules, notices, and rooms — all in one place.
         </p>
       </div>
 
