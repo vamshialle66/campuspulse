@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const PORT  = process.env.PORT || 5000
 
 const app = express();
 
@@ -13,4 +14,4 @@ mongoose.connect("mongodb://admin:admin%40123@ac-pbeymuf-shard-00-00.eyp1rd7.mon
 
 app.use("/auth", require("./routes/auth"));
 
-app.listen(5000, () => console.log("Server running on 5000"));
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));

@@ -8,11 +8,13 @@ export default function Auth() {
   const [password, setPassword] = useState("");
 
   const isLogin = mode === "login";
+  const API_URL = import.meta.env.VITE_API_URL;
+
 
   const handleSubmit = async () => {
     const url = isLogin
-      ? "http://localhost:5000/auth/login"
-      : "http://localhost:5000/auth/register";
+      ? `${API_URL}/auth/login`
+      : `${API_URL}/auth/register`;
 
     const res = await fetch(url, {
       method: "POST",
