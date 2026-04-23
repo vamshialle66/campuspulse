@@ -12,6 +12,12 @@ export default function Auth() {
 
 
   const handleSubmit = async () => {
+    
+    if(!isLogin && !email.endsWith("@atharvacoe.ac.in")){
+      alert("Use your college email (xyz@atharvacoe.ac.in)")
+      return
+}
+
     const url = isLogin
       ? `${API_URL}/auth/login`
       : `${API_URL}/auth/register`;
