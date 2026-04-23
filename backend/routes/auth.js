@@ -2,9 +2,27 @@ const router = require("express").Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const sendOTP = require("../utils/mailer.js");
+const auth = require("../middleware/auth");
+const requireRole = require("../middleware/requireRole");
 
 const otpStore = {};
 
+router.get("/me", auth, (req, res) => {
+  res.json(req.user);
+});
+
+router.get("/admin", auth, requireRole(["admin"]), (req, res) => {
+  res.json({ msg: "Admin access granted" });
+});
+
+router.get(
+  "/faculty",
+  auth,
+  requireRole(["faculty", "admin"]),
+  (req, res) => {
+    res.json({ msg: "Faculty access granted" });
+  }
+);
 
 // ==========================
 // 🔐 LOGIN
@@ -107,11 +125,15 @@ router.post("/verify-otp", async (req, res) => {
     if (existing) {
       return res.status(400).json({ msg: "User already exists" });
     }
+    let role = "student";
+    if (email.endsWith("@faculty.atharvacoe.ac.in")){
+      role = "faculty"
+    }
 
     const user = await User.create({
       email,
       password,
-      role: "student",
+      role,
     });
 
     delete otpStore[email];
@@ -123,5 +145,11 @@ router.post("/verify-otp", async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+
+router.get("/my-classes", auth, requireRole(["faculty"]), async (req, res) => {
+  const classes = await Class.find({ facultyId: req.user.id });
+  res.json(classes);
+});
+
 
 module.exports = router;
