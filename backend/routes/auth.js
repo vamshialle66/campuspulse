@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const sendOTP = require("../utils/mailer");
+const sendOTP = require("../utils/mailer.js");
 
 const otpStore = {};
 
